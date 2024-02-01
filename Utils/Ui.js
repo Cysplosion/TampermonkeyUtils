@@ -30,6 +30,9 @@ class Icons {
     static get Icon_Refresh() {return "https://i.imgur.com/jcDxUdx.png"};
     static get Icon_Stack() {return "https://i.imgur.com/H5AL5OJ.png"};
     static get Icon_Cancel() {return "https://i.imgur.com/P7EKeAp.png"};
+    static get Icon_Delete() {return "https://imgur.com/NHMKfod.png"};
+    static get Icon_Save() {return "https://i.imgur.com/8Ph6Scl.png"};
+    static get Icon_Plus() {return "https://i.imgur.com/aCVTlVI.png"};
     //#endregion
 }
 
