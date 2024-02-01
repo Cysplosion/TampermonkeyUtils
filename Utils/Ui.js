@@ -33,6 +33,7 @@ class Icons {
     static get Icon_Delete() {return "https://imgur.com/NHMKfod.png"};
     static get Icon_Save() {return "https://i.imgur.com/8Ph6Scl.png"};
     static get Icon_Plus() {return "https://i.imgur.com/aCVTlVI.png"};
+    static get Icon_Reset() {return "https://i.imgur.com/GulF9MY.png"};
     //#endregion
 }
 
