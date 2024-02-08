@@ -135,25 +135,9 @@ class PMRequest {
         const queryString = this.BuildQueryString(query);
         Logger.log(3, "OpenArist: " + queryString);
 
-        return new Promise((resolve, reject) => {
-            GM_xmlhttpRequest({
-                method: "GET",
-                url: this.ApiUrl + "saveArtist" + queryString,
-                onload: function(response) {
-                    Logger.log(5, response.responseText);
-
-                    let res = JSON.parse(response.responseText);
-                    if(response.status == 500) {
-                        callback({"exists":false, "files":[]});
-                        return;
-                    }
-                    
-                    resolve(JSON.parse(response.responseText));
-                },
-                onerror: function(error) {
-                    reject(JSON.parse(false));
-                }
-            });
+        return this.HttpRequestPM({
+            route:Routes.SaveArtist,
+            query:queryString
         });
     }
 
