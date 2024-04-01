@@ -162,3 +162,85 @@ class PMRequest {
         return queryString;
     }
 }
+
+class RoutesNew {
+    static get FileExists() {
+        return "FileExists";
+    }
+
+    static get Files() {
+        return "File";
+    }
+}
+
+class PMRequestNew {
+    static ApiUrl = "http://localhost:5156";
+
+    /**
+     * route* | parameter | query | method = GET
+     * @param {*} parameters 
+     * @returns 
+     */
+    static async HttpRequestPM(parameters) {
+        parameters.endPoint = this.ApiUrl;
+        return this.HttpRequest(parameters);
+    }
+
+    static async HttpRequest(parameters) {
+        const query = encodeURI(parameters.query ?? "");
+        const param = parameters.parameter?.replaceAll("/", encodeURIComponent("/"));
+        const url = `${parameters.endPoint}/${parameters.route}/${param !== undefined ? param + "/" : ""}${query.startsWith("?") && query !== "" ? query : "?" + query}`;
+        parameters.url = url;
+
+        return new Promise((resolve, reject) => {
+            GM_xmlhttpRequest({
+                method: parameters.method ?? "GET",
+                url: url,
+                onload: function(response) {
+                    Logger.log(5, [parameters, url, response.responseText], "Request");
+                    try {
+                        if(parameters.mode ?? "JSON" == "JSON") {
+                            resolve(JSON.parse(response.responseText));
+                        } else {
+                            resolve(response.responseText);
+                        }
+                    } catch (error) {
+                        Logger.error([error, parameters, response.responseText], "Error");
+                        reject(null);
+                    }
+                },
+                onerror: function(error) {
+                    Logger.error(error, "Error fetching data:");
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    static IsFileSaved(site, id, file, fuzzy, service = undefined) {
+        const queryString = this.BuildQueryString({fuzzy:fuzzy, service:service});
+
+        return this.HttpRequestPM({
+            route:`${RoutesNew.FileExists}/${site}/${id}/${file}`,
+            query:queryString
+        });
+    }
+
+    static GetAllFiles(query) {
+
+    }
+
+    static BuildQueryString(query) {
+        let keys = Array.from(Object.keys(query));
+        let queryString = "";
+        if(keys.length > 0){
+            queryString = "?";
+            keys.forEach((element) => {
+                queryString += `${element}=${query[element]}&`;
+            });
+            queryString = queryString.slice(0,-1);
+        }
+
+        return queryString;
+    }
+}
