@@ -5,19 +5,37 @@
                 continue;
             }
     
-            for(let addedNode of mutation.addedNodes) {
-                if(!observeConditions(addedNode)) {
+            if(mutation.type == "childList") {
+                for(let addedNode of mutation.addedNodes) {
+                    if(!observeConditions(addedNode)) {
+                        continue;
+                    }
+                    
+                    if(disconnectWhenFound)
+                        this.disconnect();
+                
+                    if(action)
+                        action(addedNode);
+                    else
+                        console.log(addedNode);
+                }
+            }
+            else {
+                const node = mutation.target;
+
+                if(!observeConditions(node)) {
                     continue;
                 }
-    
+
                 if(disconnectWhenFound)
                     this.disconnect();
-
+                
                 if(action)
-                    action(addedNode);
+                    action(node);
                 else
-                    console.log(addedNode);
+                    console.log(node);
             }
+
         }
     });
 }
