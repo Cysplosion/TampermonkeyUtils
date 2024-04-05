@@ -22,8 +22,8 @@
     });
 }
 
-function CreateClassObserver(nodeClass, action = undefined, dcWhenFound = true) {
-    return CreateObserver((node)=>node.nodeType === Node.ELEMENT_NODE && node.getAttribute("class") === nodeClass, action, dcWhenFound)
+function CreateClassObserver(nodeClass, action = undefined, dcWhenFound = true, fuzzy = false) {
+    return CreateObserver((node)=>node.nodeType === Node.ELEMENT_NODE && (!fuzzy ? node.getAttribute("class") === nodeClass : node.getAttribute("class").includes(nodeClass)), action, dcWhenFound)
 }
 
 function StartObserver(observer, options = { childList: true, subtree: true }, element = document) {
