@@ -1,7 +1,7 @@
- function CreateObserver(observeConditions, action = undefined, disconnectWhenFound = true) {
+ function CreateObserver(observeConditions, mutationTypeConditions, action = undefined, disconnectWhenFound = true) {
     return new MutationObserver(function(mutationsList) {
         for (let mutation of mutationsList) {
-            if(mutation.type !== 'childList') {
+            if(!mutationTypeConditions(mutation)) {
                 continue;
             }
     
@@ -23,7 +23,7 @@
 }
 
 function CreateClassObserver(nodeClass, action = undefined, dcWhenFound = true, fuzzy = false) {
-    return CreateObserver((node)=>node.nodeType === Node.ELEMENT_NODE && (!fuzzy ? node.getAttribute("class") === nodeClass : node.getAttribute("class").includes(nodeClass)), action, dcWhenFound)
+    return CreateObserver((node)=>node.nodeType === Node.ELEMENT_NODE && (!fuzzy ? node.getAttribute("class") === nodeClass : node.getAttribute("class").includes(nodeClass)), (mutation) => mutation.type === 'childList', action, dcWhenFound)
 }
 
 function StartObserver(observer, options = { childList: true, subtree: true }, element = document) {
