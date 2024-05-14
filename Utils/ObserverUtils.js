@@ -49,7 +49,7 @@ function StartObserver(observer, options = { childList: true, subtree: true }, e
 }
 
 function ObserveAll() {
-    StartObserver(CreateObserver(()=>true, ()=>true, false));
+    StartObserver(CreateObserver(()=>true, ()=>true, undefined, false));
 }
 
 function GetParent(element, generations = 1) {
