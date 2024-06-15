@@ -166,7 +166,7 @@ class DownloadHelper {
                         onerror(error);
                         
                         //backup download
-                        failedDownloadAbort = DownloadHelper.Download({url:options.url, fileName:options.fileName, onload:onload, onerror:onerror, onprogress:onProgress}).abort;
+                        //failedDownloadAbort = DownloadHelper.Download({url:options.url, fileName:options.fileName, onload:onload, onerror:onerror, onprogress:onProgress}).abort;
                     });
                 }catch(error) {
                     onerror(error);
