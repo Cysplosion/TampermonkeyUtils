@@ -35,6 +35,13 @@ class Routes {
     }
 
     /**
+     * param: url
+     */
+    static get unlinkArtist() {
+        return "unlinkArtist";
+    }
+
+    /**
      * param: tag, query: alt*
      */
     static get SaveTag() {
@@ -138,6 +145,15 @@ class PMRequest {
         return this.HttpRequestPM({
             route:Routes.SaveArtist,
             query:queryString
+        });
+    }
+
+    static unlinkArtist(url) {
+        Logger.log(3, "OpenArist: " + url, "-r");
+
+        return this.HttpRequestPM({
+            route:Routes.unlinkArtist,
+            parameter:url
         });
     }
 

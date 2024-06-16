@@ -1,7 +1,7 @@
 class DownloadHelper {
     static Download(options) {
         const defaultHeaders = {};
-        const defaultConflictAction  ="prompt";
+        const defaultConflictAction  = "prompt";
         const defaultSaveAs = false;
 
         const rejectResponse = (error)=> ({
