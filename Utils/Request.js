@@ -56,6 +56,7 @@ class PMRequestBase {
     if (keys.length > 0) {
       queryString = '?';
       keys.forEach(element => {
+        if (query[element] === undefined) return;
         queryString += `${element}=${query[element]}&`;
       });
       queryString = queryString.slice(0, -1);
