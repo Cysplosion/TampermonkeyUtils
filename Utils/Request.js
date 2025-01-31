@@ -336,7 +336,7 @@ class PMRequestNew extends PMRequestBase {
     });
   }
 
-  static Save(tag, extra = undefined) {
+  static SaveTag(tag, extra = undefined) {
     const queryString = this.BuildQueryString({ extra: extra });
 
     return this.HttpRequestPM({
